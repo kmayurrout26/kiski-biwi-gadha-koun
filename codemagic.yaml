@@ -1,0 +1,21 @@
+
+workflows:
+  android-apk:
+    name: BRAY Score Tracker APK
+    max_build_duration: 60
+    instance_type: linux_x2
+
+    scripts:
+      - name: Build Android APK
+        script: |
+          cd BRAY_Score_Tracker_App_Project/BRAY_Score_Tracker_App
+          if [ -f gradlew ]; then
+            chmod +x gradlew
+            ./gradlew assembleDebug
+          else
+            gradle assembleDebug
+          fi
+
+    artifacts:
+      - BRAY_Score_Tracker_App_Project/BRAY_Score_Tracker_App/app/build/outputs/apk/**/*.apk
+      - "**/build/outputs/apk/**/*.apk"
